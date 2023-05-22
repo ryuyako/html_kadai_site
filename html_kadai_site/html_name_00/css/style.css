@@ -1,0 +1,530 @@
+/* ここから下に記載していく */
+/* 「どこの、何を、どうする」をお品書き的にひたすら書いていく */
+
+/* 1. bodyの全体幅を1200px、全般文字サイズを16px */
+* {
+    box-sizing: border-box;
+}
+
+#body {
+    width: 1200px;
+    font-size: 16px;
+}
+
+/* ヘッダー */
+/* 2-5 https://webdesign-pg.com/gnav01-leftlogo-rightmenu */
+/* 2. headerを横並びにする(display: flex;) */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 3. Menuを横並びにする、リストの「・」を消す*/
+ul {
+    display: flex;
+    list-style: none;
+}
+
+/* 4. Listのスペースを空ける、下線を取る、文字色を変更 */
+li {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: 35px;
+    margin-right: 50px;
+    font-size: 21px;
+}
+
+/* 5. Listのリンクの下線を取る、文字色を変更 */
+a {
+    text-decoration: none;
+    color: black;
+}
+
+/* メインバナー */
+/* 6. メイン画像を中心に移動!?*/
+.container{
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.container img{
+    width: 100%;
+}
+
+.commentsinpicture {
+    position: absolute;
+    text-align: center;
+    top: 40%;
+    bottom: 60%;
+}
+
+/* 7. コメントを画像内に移動、フォント調整 */
+#commentinpicture1 {
+    color: white;
+    font-weight: bold;
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+
+/* 8. コメントを画像内に移動、フォント調整 */
+#commentinpicture2 {
+    color: white;
+    font-size: 30px;
+}
+
+/* ABOUT、NEWSの文字色を24px太字黄色中央に変更 */
+#ABOUT {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffd61a;
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 30px;
+}
+
+#NEWS {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffd61a;
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 30px;
+}
+
+/* チーズアカデミーについてのフォント変更 */
+.aboutacademy {
+    font-size: 18px;
+    text-align: center; 
+    margin-bottom: 60px;
+}
+
+.aboutacademytext1 {
+    margin-bottom: 40px;
+}
+
+.aboutacademytext2 {
+    margin-bottom: 40px;
+    line-height: normal;
+}
+
+.aboutacademytext3 {
+    margin-bottom: 40px;
+}
+
+.aboutacademytext4 {
+    margin-bottom: 80px;
+    line-height: normal;
+}
+
+/* ABOUTの画像を横並び */
+.aboutpictures {
+    display: flex;
+    justify-content: center;
+}
+
+#imgabout04 {
+    width: 25%;
+}
+
+#imgabout03 {
+    width: 25%;
+}
+
+#imgabout02 {
+    width: 25%;
+}
+
+#imgabout01 {
+    width: 25%;
+}
+
+/* JPの文章を中央寄せ */
+.JP {
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 30px;
+}
+
+/* COURSE */
+/* COURSEを中央寄せ */
+#COURSE {
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* h3を纏めて太字 */
+h3 {
+    font-weight: bold;
+}
+
+.coursetext {
+    margin-bottom: 60px;
+    line-height: normal;
+}
+
+/* COURSEの背景色をグレーに */
+.GRAYBACKGROUND {
+    background-color: #fafafa;
+}
+
+/* 本格的な農園を使った実地研修 */
+.training {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.imagecourse01{
+    margin-right: 50px;
+}
+
+.trainingtitletext {
+    width: 480px;
+    margin-right: 120px;
+}
+
+.trainingtitle {
+    font-weight: bold;
+    font-size: 24px;
+    margin-top: 120px;
+    margin-bottom: 40px;
+}
+
+.trainingtext {
+    text-align: left;
+    line-height: normal;
+    margin-bottom: 120px;
+}
+
+/* 必要な知識もしっかりと取得 */
+.knowledge {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.knowledgetitletext {
+    width: 480px;
+    margin-left: 230px;
+}
+
+.knowledgetitle {
+    font-weight: bold;
+    font-size: 24px;
+    margin-top: 120px;
+    margin-bottom: 40px;
+}
+
+.knowledgetext {
+    text-align: left;
+    line-height: normal;
+}
+
+.imagecourse02 {
+    margin-left: 0px;
+}
+
+/* 卒業制作はティスティング審査あり */
+.finalreport {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.imagecourse03{
+    margin-right: 60px;
+}
+
+.finalreporttitletext {
+    width: 480px;
+    margin-right: 120px;
+}
+
+.finalreporttitle {
+    font-weight: bold;
+    font-size: 24px;
+    margin-top: 120px;
+    margin-bottom: 40px;
+}
+
+.finalreporttext {
+    text-align: left;
+    line-height: normal;
+}
+
+table {
+    width: 300px;
+    margin-bottom: 20px;
+    border-collapse: separate;
+    border-spacing: 30px;
+}
+
+.newstable {
+    display: flex;
+    justify-content: center;
+}
+
+.newstext {
+    font-size: 14px;
+    line-height: normal;
+}
+
+.newsdate {
+    margin-bottom: 24px;
+}
+
+/* Hoverアクション 画像拡大*/
+.zoom-box {
+    display: inline-block;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.bnr-zoom img{
+    display: block;
+    transition-duration: .5s;
+}
+
+.bnr-zoom:hover img{
+    transform: scale(1.2);
+}
+
+/* Hoverアクション 文字下線*/
+/* https://kingsite.jp/blog/0108#03 */
+/* https://cotodama.co/css_mouseover_img/ */
+.zoom-text {
+    display: inline-block;
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none
+}
+
+.text-zoom:hover {
+    text-decoration: underline;
+}
+
+.More {
+    margin: 0 auto;
+    padding: 16px 0px;
+    font-size: 18px;
+    color: white;
+    background: #ffd61a;
+    width: 300px;
+    display: flex;
+    justify-content: center
+}
+
+/* Hoverアクション 文字拡大 */
+.textscaleup {
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    transition: .3s;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.textscaleuphover :hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+#ACCESS {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    padding-top: 60px;
+}
+
+.corpinfo {
+    margin-bottom: 60px;
+}
+
+.map {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 60px;
+}
+
+.corpdetail {
+    width: 100%;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    border-collapse: separate;
+    border-spacing: 30px;
+    margin-bottom: 60px;
+}
+
+#CONTACT {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 30px;
+}
+
+.CONTACT {
+    text-align: center;
+}
+
+.CONTACTtext1 {
+    margin-bottom: 60px;
+}
+
+.CONTACTtext2 {
+    line-height: normal;
+    margin-bottom: 30px;
+}
+
+.CONTACTtext3 {
+    line-height: normal;
+    margin-bottom: 70px;
+}
+
+/* FORM */
+/* 一旦、コメントアウト */
+/* .CONTACTFORM {
+    width: 640px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.CONTACTFORM1 {
+    border-top: 2px solid #bfbfbf;
+    display: flex;
+    padding-left: 16px;
+    margin-bottom: 9px;
+    height: 36px;
+    line-height: normal;   
+}
+
+.CONTRACTFORM1name {
+    width: 240px;
+    padding-right: 64px;
+}
+
+.CONTACTFORM1-1 {
+    width: 400px;
+    display: flex;
+    justify-content: center;
+} */
+
+.CONTACTFORM2 {
+    box-sizing: border-box;
+    width: 640px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.CONTACTFORM2table {
+    width: 640px;
+    border-spacing: 0px;
+    border-top: 2px solid #bfbfbf;
+    border-bottom: 1px solid #bfbfbf;
+}
+
+.CONTACTFORMitem {
+    width: 240px;
+    height: 36px;
+    line-height: 36px;
+    text-align: left;
+    padding-left: 16px;
+    padding-right: 64px;
+    border-right: 1px solid #bfbfbf;
+    border-bottom: 1px solid #bfbfbf;
+}
+
+.CONTACTFORMbody {
+    padding-left: 8px;
+    border-bottom: 1px solid #bfbfbf;
+}
+
+.CONTACTFORMtext {
+    height: 20px;
+}
+
+select {
+    outline: none;
+    border: solid 1px #bfbfbf;
+    width: 328px;
+}
+
+input {
+    outline: none;
+    border: solid 1px #bfbfbf;
+    width: 328px;
+}
+
+#起業 {
+    width: auto;
+    margin-bottom: 24px;
+}
+
+#就職・転職 {
+    width: auto;
+    margin-bottom: 24px;
+}
+
+#仕事に生かしたい {
+    width: auto;
+    margin-bottom: 24px;
+}
+
+#教養 {
+    width: auto;
+    margin-bottom: 24px;
+}
+
+#詳細 {
+    height: 120px;
+    margin: 0px 0px 8px 4px;
+    vertical-align: top;
+}
+
+.submitbutton {
+    margin-top: 30px;
+    margin-bottom: 140px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 16px 0px;
+    font-size: 18px;
+    color: white;
+    background: #ffd61a;
+    border-color: #ffd61a;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+.submitbuttonhover {
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    transition: .3s;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.submitbuttonhover :hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+footer {
+    background-color: #707070;
+    color: white;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
