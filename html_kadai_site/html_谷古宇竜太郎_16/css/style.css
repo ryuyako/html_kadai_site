@@ -434,8 +434,8 @@ table {
 
 .CONTACTFORMitem {
     width: 240px;
-    height: 36px;
-    line-height: 36px;
+    height: 52px;
+    line-height: 36px ;
     text-align: left;
     padding-left: 16px;
     padding-right: 64px;
@@ -443,19 +443,26 @@ table {
     border-bottom: 1px solid #bfbfbf;
 }
 
+#inlineheightadjustment {
+    line-height: 18px;
+    padding-bottom: 8px;
+}
+
 .CONTACTFORMbody {
+    padding-top: 8px;
     padding-left: 8px;
     border-bottom: 1px solid #bfbfbf;
 }
 
 .CONTACTFORMtext {
-    height: 20px;
+    height: 36px;
 }
 
 select {
     outline: none;
     border: solid 1px #bfbfbf;
     width: 328px;
+    height: 36px;
 }
 
 input {
