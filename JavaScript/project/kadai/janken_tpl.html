@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<script src="js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" href="css/sample.css">
+<title>じゃんけん</title>
+</head>
+<body>
+
+<header>
+  <h1>じゃんけん</h1>
+  <img id="heroimage" src="janken-520x520.png" alt="">
+</header>
+
+<main>
+<p id="pleaseclick">↓↓↓画像をクリック↓↓↓</p>
+
+  <ul>
+    <!-- <div class="userhands"> -->
+      <li id="gu_btn"><img src="janken_gu-160x160.png" alt=""></li>
+      <li id="cho_btn"><img src="janken_choki-160x160.png" alt=""></li>
+      <li id="par_btn"><img src="janken_pa-160x160.png" alt=""></li>
+    <!-- </div> -->
+  </ul>
+  
+    <audio id="btn_audio">
+    <source src="ドラムロールの音.mp3" type="audio/mp3">
+    </audio>
+
+  <div id="computerhand">コンピュータの出した手は？</div>
+  <div id="whathand">「<span id="pc_hands">？？？</span>」</div>
+  <div id="judgement">結果</div>
+</main>
+
+<footer></footer>
+<script>
+//じゃんけん用のSCRIPTを書いてください
+// jQuery⇒RANDOM⇒IF
+  $("#gu_btn").on("click", function(){
+    const audio = 
+      document.getElementById("btn_audio").currentTime = 0; //連続クリックに対応
+      document.getElementById("btn_audio").play(); //クリックしたら音を再生
+    let result = Math.ceil(Math.random() * 3);
+    console.log(result);
+   
+    setTimeout(function(){
+        if (result == 1) {
+          console.log("グー");
+          $("#pc_hands").text("グー");
+          console.log("あいこ");
+          $("#judgement").text("あいこ");
+        } else if (result ==2) {
+          console.log("チョキ");
+          $("#pc_hands").text("チョキ");
+          console.log("勝ち");
+          $("#judgement").text("勝ち");
+        } else if (result ==3) {
+          console.log("パー");
+          $("#pc_hands").text("パー");
+          console.log("負け");
+          $("#judgement").text("負け");
+        }
+    }, 3460);
+
+    setTimeout(function(){
+    if ("#judgement" == "勝ち"){
+    const audio =
+      document.getElementById("btn_audio").currentTime = 0; //連続クリックに対応
+      document.getElementById("btn_audio").play(); //クリックしたら音を再生
+    }
+    }, 9000);
+  });
+
+  $("#cho_btn").on("click", function(){
+    const audio = 
+      document.getElementById("btn_audio").currentTime = 0; //連続クリックに対応
+      document.getElementById("btn_audio").play(); //クリックしたら音を再生
+
+    let result = Math.ceil(Math.random() * 3);
+    console.log(result);
+
+    setTimeout(function(){
+      if (result == 1) {
+      console.log("グー");
+      $("#pc_hands").text("グー");
+      console.log("負け");
+      $("#judgement").text("負け");
+    } else if (result ==2) {
+      console.log("チョキ");
+      $("#pc_hands").text("チョキ");
+      console.log("あいこ");
+      $("#judgement").text("あいこ");
+    } else if (result ==3) {
+      console.log("パー");
+      $("#pc_hands").text("パー");
+      console.log("勝ち");
+      $("#judgement").text("勝ち");
+    }
+  }, 3460);
+
+    setTimeout(function(){
+    if ("#judgement" == "勝ち"){
+    const audio =
+      document.getElementById("btn_audio").currentTime = 0; //連続クリックに対応
+      document.getElementById("btn_audio").play(); //クリックしたら音を再生
+    }
+    }, 9000);
+  });
+
+
+    $("#par_btn").on("click", function(){
+      const audio = 
+      document.getElementById("btn_audio").currentTime = 0; //連続クリックに対応
+      document.getElementById("btn_audio").play(); //クリックしたら音を再生
+
+    let result = Math.ceil(Math.random() * 3);
+    console.log(result);
+
+    setTimeout(function(){
+      if (result == 1) {
+      console.log("グー");
+      $("#pc_hands").text("グー");
+      console.log("勝ち");
+      $("#judgement").text("勝ち");
+    } else if (result ==2) {
+      console.log("チョキ");
+      $("#pc_hands").text("チョキ");
+      console.log("負け");
+      $("#judgement").text("負け");
+    } else if (result ==3) {
+      console.log("パー");
+      $("#pc_hands").text("パー");
+      console.log("あいこ");
+      $("#judgement").text("あいこ");
+    }
+  }, 3460);
+
+  setTimeout(function(){
+    if ("#judgement" == "勝ち"){
+    const audio =
+      document.getElementById("btn_audio").currentTime = 0; //連続クリックに対応
+      document.getElementById("btn_audio").play(); //クリックしたら音を再生
+    }
+    }, 9000);
+  });
+
+</script>
+</body>
+</html>
