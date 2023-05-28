@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="js">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js-04 | Math Object</title>
+</head>
+<body>
+
+<script>
+const num = 4.5;
+let result = Math.ceil(num);
+console.log(result);
+
+result = Math.random(); //0から1まででランダムな数字を出す
+console.log(result);
+
+//1,2,3,4,5のランダムな整数を生成
+result = Math.random() * 5;
+result = Math.ceil(result);
+console.log(result);
+
+// 模範解答
+result = Math.ceil(Math.random() * 5);
+console.log(result);
+
+</script>
+</body>
+</html>
