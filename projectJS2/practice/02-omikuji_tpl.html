@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<script src="js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" href="css/sample.css">
+<title>おみくじ</title>
+</head>
+<body>
+
+<header>
+    <h1>おみくじ</h1>
+</header>
+
+<main>
+    <ul>
+        <li id="pull">おみくじを引く</li>
+    </ul>
+    <p id="echo"></p>
+</main>
+
+<footer>フッター</footer>
+<script>
+// 課題: おみくじアプリを配列を使って書き換えてみよう
+$('#pull').on('click', function() {
+    // 0, 1, 2, 3, 4 のいずれかがランダムに出力される
+    // Math.floor() ... 小数点切り捨て
+    const randomNum = Math.floor(Math.random() * 5);
+    const results = ['大吉','中吉','小吉','吉','凶'];
+    $('#echo').html(results[randomNum]);
+})
+
+
+
+
+</script>
+</body>
+</html>
