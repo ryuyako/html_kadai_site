@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Chatアプリ</title>
+</head>
+<body>
+
+<!-- コンテンツ表示画面 -->
+<div>
+    <div>
+        名前: <input type="text" id="uname">
+    </div>
+    <div>
+        <textarea name="" id="text" cols="30" rows="10"></textarea>
+        <button id="send">送信</button>
+    </div>
+    <div id="output" style="overflow: auto; height: 300px;"></div>
+</div>
+<!--/ コンテンツ表示画面 -->
+
+<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- JQuery -->
+
+<!--** 以下Firebase **-->
+<!-- Shift + Alt + Fで改行を整える -->
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+    import { getDatabase, ref, push, set, onChildAdded, remove }
+        from "https://cdnjs.cloudflare.com/ajax/libs/firebase/9.22.2/firebase-database.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_AUTH_DOMAIN",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_STORAGE_BUCKET",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+        appId: "YOUR_APP_ID"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    // Realtime DBに接続する
+    const db = getDatabase(app);
+    const dbRef = ref(db, "chat");
+
+    $("#text").on("keydown", function (event) {
+        if (event.keyCode === 13) { // Enterキーのキーコードは13
+            event.preventDefault(); // フォームのデフォルトのEnterキー動作を防止
+            $("#send").click(); // 送信ボタンをクリックする
+        }
+    });
+
+    // 送信ボタンが押されたら、データをDBに送信
+    $("#send").on("click", function () {
+        const uname = $("#uname").val();
+        const text = $("#text").val();
+
+        // 名前とメッセージの入力チェック
+        if (!uname.trim() || !text.trim()) {
+            alert("名前とメッセージは必須です");
+            return;
+        }
+
+        // 新規のデータを送付できる状態にする
+        const newPostRef = push(dbRef); //ユニークキーを生成
+
+        // DBに値を送信
+        set(newPostRef, { uname: uname, text: text });
+
+        // 入力欄をクリアする
+        $("#uname").val("");
+        $("#text").val("");
+    });
+
+    onChildAdded(dbRef, function (data) {
+        const msg = data.val();
+        const key = data.key;
+        const messageElement = `<p id="${key}">${msg.uname}: ${msg.text} <button class="remove-btn" data-key="${key}">削除</button></p>`;
+        $("#output").append(messageElement);
+    });
+
+    // 削除ボタンがクリックされたら、データと要素を削除
+    $("#output").on("click", ".remove-btn", function () {
+        const key = $(this).data("key");
+        const messageElement = document.getElementById(key);
+        messageElement.remove();
+        remove(ref(db, `chat/${key}`));
+    });
+</script>
+</body>
+</html>
