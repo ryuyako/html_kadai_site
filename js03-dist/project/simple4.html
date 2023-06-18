@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Chatアプリ</title>
+    <style>
+        body {
+            background-color: #f1f1f1;
+            font-family: Arial, sans-serif;
+        }
+
+        #container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        #send {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #333;
+            color: #fff;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #output {
+        overflow: auto;
+        height: 300px;
+        padding: 10px;
+    }
+
+   p {
+        margin: 10px 0;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 4px;
+        overflow-wrap: break-word;
+    }
+
+    .timestamp {
+        font-size: 12px;
+        color: #999;
+        margin-right: 5px;
+    }
+
+      .remove-btn {
+        background-color: transparent;
+        border: none;
+        color: #999;
+        font-size: 12px;
+        cursor: pointer;
+        float: right;
+        margin-top: -5px;
+    }
+
+    </style>
+</head>
+<body>
+
+<!-- コンテンツ表示画面 -->
+<div id="container">
+    <h1>Chatアプリ</h1>
+    <div>
+        <div class="form-row">
+            <label for="uname">名前:</label>
+            <input type="text" id="uname">
+        </div>
+        <div class="form-row">
+            <label for="text">メッセージ:</label>
+            <textarea name="" id="text" cols="30" rows="10"></textarea>
+        </div>
+        <button id="send">送信</button>
+    </div>
+    <div id="output" style="overflow: auto; height: 300px;"></div>
+</div>
+<!--/ コンテンツ表示画面 -->
+
+<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- JQuery -->
+
+<!--** 以下Firebase **-->
+<!-- Shift + Alt + Fで改行を整える -->
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+    import { getDatabase, ref, push, set, onChildAdded, remove, onChildRemoved, serverTimestamp }
+        from "https://cdnjs.cloudflare.com/ajax/libs/firebase/9.22.2/firebase-database.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "",
+      authDomain: "fir-demo-6adb1.firebaseapp.com",
+      projectId: "fir-demo-6adb1",
+      storageBucket: "fir-demo-6adb1.appspot.com",
+      messagingSenderId: "508573067661",
+      appId: "1:508573067661:web:4669044b9a42a194f9b5c4"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    // Realtime DBに接続する
+    const db = getDatabase(app);
+    const dbRef = ref(db, "chat");
+
+    $("#text").on("keydown", function (event) {
+        if (event.keyCode === 13) { // Enterキーのキーコードは13
+            event.preventDefault(); // フォームのデフォルトのEnterキー動作を防止
+            $("#send").click(); // 送信ボタンをクリックする
+        }
+    });
+
+    // 送信ボタンが押されたら、データをDBに送信
+    $("#send").on("click", function () {
+        const uname = $("#uname").val();
+        const text = $("#text").val();
+
+        // 名前とメッセージの入力チェック
+        if (!uname.trim() || !text.trim()) {
+            alert("名前とメッセージは必須です");
+            return;
+        }
+
+        // 新規のデータを送付できる状態にする
+        const newPostRef = push(dbRef); //ユニークキーを生成
+
+        // // DBに値を送信
+        // set(newPostRef, { uname: uname, text: text });
+
+ // DBに値を送信
+ set(newPostRef, { uname: uname, text: text, timestamp: serverTimestamp() });
+
+
+        // 入力欄をクリアする
+        $("#uname").val("");
+        $("#text").val("");
+    });
+
+    // onChildAdded(dbRef, function (data) {
+    //     const msg = data.val();
+    //     const key = data.key;
+    //     const timestamp = new Date().toLocaleTimeString();
+    //     const messageElement = `<p id="${key}"> <span class="timestamp">${timestamp}</span> ${msg.uname}: ${msg.text} <button class="remove-btn" data-key="${key}">削除</button></p>`;
+    //     $("#output").append(messageElement);
+    // });
+
+    onChildAdded(dbRef, function (data) {
+        const msg = data.val();
+        const key = data.key;
+        const timestamp = new Date(msg.timestamp).toLocaleTimeString();
+        const messageElement = `<p id="${key}"> <span class="timestamp">${timestamp}</span> ${msg.uname}: ${msg.text} <button class="remove-btn" data-key="${key}">削除</button></p>`;
+        $("#output").append(messageElement);
+    });
+
+    // 削除ボタンがクリックされたら、データと要素を削除
+    $("#output").on("click", ".remove-btn", function () {
+        const key = $(this).data("key");
+        const messageElement = document.getElementById(key);
+        messageElement.remove();
+        remove(ref(db, `chat/${key}`));
+    });
+</script>
+</body>
+</html>
