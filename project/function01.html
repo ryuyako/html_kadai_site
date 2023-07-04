@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>関数の宣言・引数</title>
+</head>
+<body>
+<script>
+// // 挨拶その1
+// console.log('こんにちは');
+// console.log('いい天気ですね');
+
+// // 挨拶その2
+// console.log('こんにちは');
+// console.log('いい天気ですね');
+
+// 初期挨拶関数
+function greet(name){
+    console.log('こんにちは' + name);
+    console.log('いい天気ですね');
+}
+
+greet("谷古宇");
+greet("竜太郎");
+
+// 引数つき挨拶関数
+
+// 演習: 複数の引数を取得して表示する
+function getFullName(sei, mei){
+    // console.log(sei + mei);
+    return sei + mei;
+}
+const result = getFullName("谷古宇","竜太郎")
+console.log(result)
+
+</script>
+</body>
+</html>

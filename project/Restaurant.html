@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>混雑状況確認アプリ</title>
+  <style>
+    /* スタイルの定義 */
+    .status-label {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .status-unknown {
+      color: gray;
+    }
+    .status-busy {
+      color: red;
+    }
+    .status-available {
+      color: green;
+    }
+    .special-deal {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>混雑状況確認アプリ</h1>
+  <div>
+    <label for="restaurant-id">レストランID：</label>
+    <input type="text" id="restaurant-id">
+    <button onclick="checkCrowdStatus()">混雑状況確認</button>
+  </div>
+  <div>
+    <h2>混雑状況</h2>
+    <p class="status-label">現在の状況：<span id="status" class="status-unknown">不明</span></p>
+  </div>
+  <div id="special-deal" class="special-deal" style="display: none;">
+    <h2>特別ディール</h2>
+    <p id="special-deal-message"></p>
+  </div>
+
+  <script>
+// Firebase Cloud Functions のインポート
+const functions = require('firebase-functions');
+// Firebase Firestore のインポート
+const admin = require('firebase-admin');
+admin.initializeApp();
+
+// 混雑状況の更新
+exports.updateCrowdStatus = functions.https.onRequest(async (req, res) => {
+  try {
+    const data = req.body;
+    const restaurantId = data.restaurant_id;
+    const crowdLevel = data.crowd_level;
+
+    // Firestoreに混雑状況を保存
+    await admin.firestore().collection('restaurants').doc(restaurantId).set({ crowd_level: crowdLevel });
+
+    res.json({ status: 'success' });
+  } catch (error) {
+    console.error('エラー:', error);
+    res.status(500).json({ error: 'エラーが発生しました' });
+  }
+});
+
+// 混雑状況の取得
+exports.getCrowdStatus = functions.https.onRequest(async (req, res) => {
+  try {
+    const restaurantId = req.params.restaurantId;
+
+    // Firestoreから混雑状況を取得
+    const restaurantDoc = await admin.firestore().collection('restaurants').doc(restaurantId).get();
+    if (restaurantDoc.exists) {
+      const crowdLevel = restaurantDoc.data().crowd_level;
+      res.json({ restaurant_id: restaurantId, crowd_level: crowdLevel });
+    } else {
+      res.status(404).json({ error: '指定されたレストランが見つかりません' });
+    }
+  } catch (error) {
+    console.error('エラー:', error);
+    res.status(500).json({ error: 'エラーが発生しました' });
+  }
+});
+
+// 特別ディールの取得
+exports.getSpecialDeal = functions.https.onRequest(async (req, res) => {
+  try {
+    const restaurantId = req.params.restaurantId;
+
+    // Firestoreから混雑状況を取得
+    const restaurantDoc = await admin.firestore().collection('restaurants').doc(restaurantId).get();
+    if (restaurantDoc.exists) {
+      const crowdLevel = restaurantDoc.data().crowd_level;
+      let specialDeal = '';
+      if (crowdLevel === 'busy') {
+        specialDeal = '飲み放題の提供があります！';
+      } else {
+        specialDeal = '特別なディールはありません';
+      }
+      res.json({ restaurant_id: restaurantId, special_deal: specialDeal });
+    } else {
+      res.status(404).json({ error: '指定されたレストランが見つかりません' });
+    }
+  } catch (error) {
+    console.error('エラー:', error);
+    res.status(500).json({ error: 'エラーが発生しました' });
+  }
+});
+
+
+    function checkCrowdStatus() {
+      const restaurantId = document.getElementById('restaurant-id').value;
+      // レストランの混雑状況を取得するAPIエンドポイントにリクエストを送信
+      fetch(`/crowd/${restaurantId}`)
+        .then(response => response.json())
+        .then(data => {
+          const statusElement = document.getElementById('status');
+          const specialDealElement = document.getElementById('special-deal');
+          const specialDealMessageElement = document.getElementById('special-deal-message');
+          
+          // 混雑状況を表示
+          if (data.crowd_level === 'busy') {
+            statusElement.textContent = '混雑中';
+            statusElement.classList.remove('status-unknown', 'status-available');
+            statusElement.classList.add('status-busy');
+          } else if (data.crowd_level === 'available') {
+            statusElement.textContent = '空席あり';
+            statusElement.classList.remove('status-unknown', 'status-busy');
+            statusElement.classList.add('status-available');
+          } else {
+            statusElement.textContent = '不明';
+            statusElement.classList.remove('status-available', 'status-busy');
+            statusElement.classList.add('status-unknown');
+          }
+          
+          // 特別ディールがある場合、表示
+          if (data.special_deal) {
+            specialDealMessageElement.textContent = data.special_deal;
+            specialDealElement.style.display = 'block';
+          } else {
+            specialDealElement.style.display = 'none';
+          }
+        })
+        .catch(error => {
+          console.error('エラー:', error);
+        });
+    }
+  </script>
+</body>
+</html>

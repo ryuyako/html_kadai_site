@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>演習</title>
+</head>
+<body>
+<h1>関数演習1</h1>
+<div id="result">結果が表示されます</div>
+<button id="button">calc()実行</button>
+
+<script>
+// 四則演算の配列結果を返す calc() 関数を作ってください
+// calc(2, 4)
+// -> [6, -2, 8, 0.5]
+function calc(a,b){
+    return [a+b, a-b, a*b, a/b];
+}
+
+// 結果表示
+const result = calc(2,4);
+console.log(calc)
+
+// 書き換え不要: ボタンが押されると結果を表示する
+document.querySelector('#button').addEventListener('click', () => {
+    document.querySelector('#result').textContent = result;
+});
+
+</script>
+</body>
+</html>

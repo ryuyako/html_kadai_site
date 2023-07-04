@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Map&amp;Geolocation</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- MapArea -->
+  <div id="view"></div>
+  <div id="myMap" style="position:relative;width:100%;height:450px;"></div>
+  <div id="db">ドラゴンボールを探す</div>
+  <!-- /MapArea -->
+  <!-- jQuery&GoogleMapsAPI -->
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <!-- /jQuery&GoogleMapsAPI -->
+  <script
+    src="https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=Agmf80c6HQgI9uk_p7I3QIOMA7l1bLEWwChRlie_uV2atmoPEXw2IkN_RRiw6o4l"
+    async defer></script>
+  <script src="https://cdn.jsdelivr.net/gh/yamazakidaisuke/BmapQuery/js/BmapQuery.js"></script>
+  <!-- javascript -->
+  <script>
+  // 書き換え部分 開始 ----------
+  let lat; // 緯度のグローバル変数
+  let lon; // 経度のグローバル変数
+  function GetMap() {
+    if (isNaN(lat) || isNaN(lon)) {
+      alert("緯度と経度の値が無効です。");
+      return;
+    }
+    let map = new Bmap("#myMap"); // マップの初期化
+    map.startMap(lat, lon, "load", 16); // マップの描画
+
+    // ピンの情報を定義
+    var pinData = [
+      { lat: 47.6097, lng: -122.3331, title: "ピン1", subTitle: "サブタイトル1" },
+      { lat: 47.6139, lng: -122.3311, title: "ピン2", subTitle: "サブタイトル2" },
+      { lat: 47.6062, lng: -122.3321, title: "ピン3", subTitle: "サブタイトル3" }
+    ];
+
+    // ピンを追加
+    pinData.forEach(function(data) {
+      map.pin(data.lat, data.lng, "#FF0000", data.title, data.subTitle);
+    });
+  }
+
+  //1．位置情報の取得に成功した時の処理
+  function mapsInit(position) {
+    // lat=緯度、lon=経度 を取得
+    lat = position.coords.latitude;
+    lon = position.coords.longitude;
+    console.log(lat, lon);
+  };
+
+  //2．位置情報の取得に失敗した場合の処理
+  function mapsError(error) {
+    let e = "";
+    if (error.code == 1) { // 1＝位置情報取得が許可されてない（ブラウザの設定）
